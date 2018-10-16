@@ -1,10 +1,11 @@
 <?php
 namespace app\home\controller;
+use think\Controller;
 
-class Index
+class Index extends Controller
 {
     public function index()
     {
-        return 'ThinkPHP5 功能测试练习';
+        return $this->fetch();
     }
 }
