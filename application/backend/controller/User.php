@@ -3,17 +3,18 @@ namespace app\backend\controller;
 use think\Controller;
 use think\AjaxPage;
 use think\Db;
+use app\common\model\Users;
 
 class User extends Controller
 {
     // 会员列表页
     public function index()
     {
-        $count = Db::name('users')->count();
+        $userModel = new Users();
+        $count = $userModel->count();
         $Page = new AjaxPage($count, 10);
-        $userList = Db::name('users')->order('user_id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
+        $userList = $userModel->order('user_id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
 
-        // dump($userList);
         $show = $Page->show();
         $this->assign('userList', $userList);
         $this->assign('page', $show); // 分页赋值输出
@@ -24,11 +25,11 @@ class User extends Controller
 
     // 会员列表
     public function ajaxindex(){
-        $count = Db::name('users')->count();
+        $userModel = new Users();
+        $count = $userModel->count();
         $Page = new AjaxPage($count, 10);
-        $userList = Db::name('users')->order('user_id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
-
-        // dump($userList);
+        $userList = $userModel->order('user_id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
+        
         $show = $Page->show();
         $this->assign('userList', $userList);
         $this->assign('page', $show); // 分页赋值输出

@@ -1,7 +1,7 @@
 <include file="public/layout" />
 <body style="background-color: rgb(255, 255, 255); overflow: auto; cursor: default; -moz-user-select: inherit;">
-
-
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
 <div class="page">
 	<div class="fixed-bar">
 		<div class="item-title">
@@ -140,6 +140,7 @@
 			</div>
 			<div style="clear:both"></div>
 		</div>
+		<!-- 会员列表div -->
 		<div class="bDiv" style="height: auto;" id="ajax_return">
 			<div id="flexigrid" cellpadding="0" cellspacing="0" border="0">
 				<table>
@@ -206,6 +207,10 @@
 	</div>
 </div>
 <script type="text/javascript">
+	$(document).ready(function(){
+	    // 点击刷新数据
+	});
+
 	// ajax抓取页面
 	function ajax_get_table(tab, page){
 
@@ -215,7 +220,6 @@
 			url: "/index.php/Backend/user/ajaxindex/p/"+page, // +tab
 			data: $('#'+tab).serialize(), // tab -> formid
 			success: function(data){
-			    console.log(data);
 			    $("#ajax_return").html('');
 			    $("#ajax_return").append(data);
 			}
@@ -225,7 +229,6 @@
 
     $(".pagination a").click(function(){
         var page = $(this).data('p');
-        console.log(page);
         ajax_get_table('search-form2', page);
     });
 
