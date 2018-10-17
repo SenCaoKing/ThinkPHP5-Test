@@ -604,6 +604,20 @@ if(!function_exists('U')) {
     }
 }
 
+if(!function_exists('C')){
+    /**
+     * 采用TP5最新助手函数特性实现函数简写方式 C
+     * 获取和设置配置参数 支持批量定义
+     * @param string|array $name    配置变量
+     * @param mixed        $value   配置值
+     * @param mixed        $default 默认值
+     * @return mixed
+     */
+    function C($name=null, $value=null, $default=null){
+        return config($name);
+    }
+}
+
 if(!function_exists('I')) {
     /**
      * 采用TP5最新助手函数特性实现函数简写方式 I

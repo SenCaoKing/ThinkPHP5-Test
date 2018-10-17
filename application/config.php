@@ -27,7 +27,7 @@ return [
     // 注册的根命名空间
     'root_namespace'         => [],
     // 扩展函数文件
-    'extra_file_list'        => [THINK_PATH . 'helper' . EXT],
+    'extra_file_list'        => [THINK_PATH . 'helper' . EXT, APP_PATH.'function.php'],
     // 默认输出类型
     'default_return_type'    => 'html',
     // 默认AJAX 数据返回格式,可选json xml ...
@@ -236,4 +236,20 @@ return [
         'var_page'  => 'page',
         'list_rows' => 15,
     ],
+
+    /* 分页每页显示数 */
+    'PAGESIZE' => 10,
+
+    /**
+     * 假设这个访问地址是 www.sen.com/home/goods/goodInfo/id/1.html
+     * 就保存名字为 home_goods_goodsInfo_1.html
+     * 配置成这样，指定 模块 控制器 方法名 参数名
+     */
+    'HTML_CACHE_ARR' => [
+        ['mca'=>'home_Goods_goodsInfo', 'p'=>['id']],
+        ['mca'=>'home_Index_index'], // 缓存首页静态页面
+        ['mca'=>'home_Goods_ajaxComment', 'p'=>['goods_id', 'commentType', 'p']], // 缓存评论静态页面 http://www.sen.com/index.php?m=Home&c=Goods&a=ajaxComment&goods_id=142&commentType=1&p=1
+        ['mca'=>'home_Goods_ajax_consult', 'p'=>['goods_id', 'consult_type', 'p']], // 缓存咨询静态页面 http://www.sen.com/index.php?m=Home&c=Goods&a=ajax_consult&goods_id=142&consult_type=0&p=2
+    ],
+
 ];

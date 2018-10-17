@@ -59,9 +59,9 @@
 </div>
 <!-- 分页位置 -->
 {$pager->show()}
+
 <script type="text/javascript" src="__PUBLIC__/static/js/jquery.js"></script>
 <script type="text/javascript">
-    // ajax抓取页面
     function ajax_get_table(tab, page){
 
         cur_page = page; // 当前页面 保存为全局变量
@@ -70,6 +70,7 @@
             url: "/index.php/Backend/user/ajaxindex/p/"+page, // +tab
             data: $('#'+tab).serialize(), // tab -> formid
             success: function(data){
+                console.log(data);
                 $("#ajax_return").html('');
                 $("#ajax_return").append(data);
             }
@@ -79,6 +80,7 @@
 
 	$(".pagination a").click(function(){
 	    var page = $(this).data('p');
+	    console.log(page);
 	    ajax_get_table('search-form2', page);
 	});
 </script>
