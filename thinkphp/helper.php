@@ -587,3 +587,52 @@ if (!function_exists('collection')) {
         }
     }
 }
+
+if(!function_exists('U')) {
+    /**
+     * 采用TP5最新助手函数特性实现函数简写方式 U
+     * URL组装 支持不同URL模式
+     * @param string       $url    URL表达式，格式：'[模块/控制器/操作#锚点@域名]?参数1=值1&参数2=值2...'
+     * @param string|array $vars   传入的参数，支持数组和字符串
+     * @param string|bool  $suffix 伪静态后缀，默认为true表示获取配置项
+     * @param bool         $domain 是否显示域名
+     * @return string
+     */
+    function U($url='', $vars='', $suffix=true, $domain=false)
+    {
+        return Url::build($url, $vars, $suffix, $domain);
+    }
+}
+
+if(!function_exists('I')) {
+    /**
+     * 采用TP5最新助手函数特性实现函数简写方式 I
+     * 获取输入参数 支持过滤和默认值
+     * 使用方法：
+     * <code>
+     * I('id', 0); 获取id参数 自动判断get或者post
+     * I('post.name', '', 'htmlspecialchars); 获取$_POST['name']
+     * I('get.'); 获取$_GET
+     * </code>
+     * @param string $name    变量的名称 支持指定类型
+     * @param mixed  $default 不存在的时候默认值
+     * @param mixed  $filter  参数过滤方法
+     * @param mixed  $datas   要获取的额外数据源
+     * @return mixed
+     */
+    function I($name, $default='', $filter='htmlspecialchars', $datas=null){
+
+        $value = input($name, '', $filter);
+        if($value !== null && $value !== ''){
+            return $value;
+        }
+        if(strstr($name, '.'))
+        {
+            $name = explode('.', $name);
+            $value = input(end($name), '', $filter);
+            if($value !== null && $value !== '')
+                return $value;
+        }
+        return $default;
+    }
+}
