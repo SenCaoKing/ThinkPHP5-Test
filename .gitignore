@@ -4,3 +4,4 @@ composer.lock
 runtime
 /application/database.php
 /public/upload
+tp5-test.sql

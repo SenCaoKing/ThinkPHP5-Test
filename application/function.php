@@ -37,6 +37,9 @@ function isMobile(){
     return false;
 }
 
+function encrypt($str){
+    return md5(C("AUTH_CODE").$str);
+}
 
 
 ?>

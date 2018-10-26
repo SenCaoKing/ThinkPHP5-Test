@@ -29,7 +29,7 @@ class User extends Controller
         $count = $userModel->count();
         $Page = new AjaxPage($count, 10);
         $userList = $userModel->order('user_id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
-        
+
         $show = $Page->show();
         $this->assign('userList', $userList);
         $this->assign('page', $show); // 分页赋值输出

@@ -2995,4 +2995,17 @@ class Query
         }
         return $result;
     }
+
+
+    /**
+     * @access public
+     * @param array $data 数据
+     * @return $this->insert($data);
+     */
+    public function add($data=[])
+    {
+        $this->insert($data);
+        return $this->getLastInsID();
+    }
+
 }

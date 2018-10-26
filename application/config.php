@@ -1,23 +1,29 @@
 <?php
-// +----------------------------------------------------------------------
-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2006~2018 http://thinkphp.cn All rights reserved.
-// +----------------------------------------------------------------------
-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
-// +----------------------------------------------------------------------
-// | Author: liu21st <liu21st@gmail.com>
-// +----------------------------------------------------------------------
+/**
+ * tpshop
+ * ============================================================================
+ * * 版权所有 2015-2027 深圳搜豹网络科技有限公司，并保留所有权利。
+ * 网站地址: http://www.tp-shop.cn
+ * ----------------------------------------------------------------------------
+ * 这不是一个自由软件！您只能在不用于商业目的的前提下对程序代码进行修改和使用 .
+ * 不允许对程序代码以任何形式任何目的的再发布。
+ * 如果商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
+ * 采用最新Thinkphp5助手函数特性实现单字母函数M D U等简写方式
+ * ============================================================================
+ * $Author: IT宇宙人 2015-08-10 $
+ */
 
 return [
     // +----------------------------------------------------------------------
     // | 应用设置
     // +----------------------------------------------------------------------
 
+    // 应用命名空间
+    'app_namespace'          => 'app',
     // 应用调试模式
-    'app_debug'              => false,
+    'app_debug'              => true,
     // 应用Trace
-    'app_trace'              => true,
+    'app_trace'              => false,
     // 应用模式状态
     'app_status'             => '',
     // 是否支持多模块
@@ -27,11 +33,11 @@ return [
     // 注册的根命名空间
     'root_namespace'         => [],
     // 扩展函数文件
-    'extra_file_list'        => [THINK_PATH . 'helper' . EXT, APP_PATH.'function.php'],
+    'extra_file_list'        => [THINK_PATH . 'helper' . EXT,APP_PATH.'function.php'],
     // 默认输出类型
     'default_return_type'    => 'html',
     // 默认AJAX 数据返回格式,可选json xml ...
-    'default_ajax_return'    => 'json',
+    'default_ajax_return'    => 'html',
     // 默认JSONP格式返回的处理方法
     'default_jsonp_handler'  => 'jsonpReturn',
     // 默认JSONP处理方法
@@ -41,7 +47,7 @@ return [
     // 是否开启多语言
     'lang_switch_on'         => false,
     // 默认全局过滤方法 用逗号分隔多个
-    'default_filter'         => '',
+    'default_filter'         => 'htmlspecialchars',
     // 默认语言
     'default_lang'           => 'zh-cn',
     // 应用类库后缀
@@ -99,7 +105,7 @@ return [
     // 域名根，如thinkphp.cn
     'url_domain_root'        => '',
     // 是否自动转换URL中的控制器和操作名
-    'url_convert'            => true,
+    'url_convert'            => false,
     // 默认的访问控制器层
     'url_controller_layer'   => 'controller',
     // 表单请求类型伪装变量
@@ -150,6 +156,9 @@ return [
 
     // 异常页面的模板文件
     'exception_tmpl'         => THINK_PATH . 'tpl' . DS . 'think_exception.tpl',
+    // errorpage 错误页面
+    'error_tmpl'         => THINK_PATH . 'tpl' . DS . 'think_error.tpl',
+
 
     // 错误显示信息,非调试模式有效
     'error_message'          => '页面错误！请稍后再试～',
@@ -169,6 +178,8 @@ return [
         'path'  => LOG_PATH,
         // 日志记录级别
         'level' => [],
+        // 日志开关  1 开启 0 关闭
+        'switch' => 0,
     ],
 
     // +----------------------------------------------------------------------
@@ -182,18 +193,25 @@ return [
     // +----------------------------------------------------------------------
     // | 缓存设置
     // +----------------------------------------------------------------------
-
+    /**/
     'cache'                  => [
         // 驱动方式
         'type'   => 'File',
         // 缓存保存目录
         'path'   => CACHE_PATH,
         // 缓存前缀
-        'prefix' => '',
+        'prefix' => '0b5b58dfc626961bb2cf07c1be8b9962',
         // 缓存有效期 0表示永久缓存
-        'expire' => 0,
+        'expire' => 1,
     ],
 
+    /*
+        'cache'                  => [
+            // 驱动方式
+            'type'   => 'redis',
+            'host'       => '192.168.0.201', // 指定redis的地址
+        ],
+    */
     // +----------------------------------------------------------------------
     // | 会话设置
     // +----------------------------------------------------------------------
@@ -236,21 +254,8 @@ return [
         'var_page'  => 'page',
         'list_rows' => 15,
     ],
-
-    /* 分页每页显示数 */
-    'PAGESIZE' => 10,
-
-    /**
-     * 假设这个访问地址是 www.sen.com/home/goods/goodInfo/id/1.html
-     * 就保存名字为 home_goods_goodsInfo_1.html
-     *
-     */
-    'HTML_CACHE_ARR' => [
-        ['mca'=>'home_Goods_goodsInfo', 'p'=>['id']],
-        ['mca'=>'home_Index_index'], // 缓存首页静态页面
-        ['mca'=>'home_Goods_ajaxComment', 'p'=>['goods_id', 'commentType', 'p']], // 缓存评论静态页面 http://www.sen.com/index.php?m=Home&c=Goods&a=ajaxComment&goods_id=142&commentType=1&p=1
-        ['mca'=>'home_Goods_ajax_consult', 'p'=>['goods_id', 'consult_type', 'p']], // 缓存咨询静态页面 http://www.sen.com/index.php?m=Home&c=Goods&a=ajax_consult&goods_id=142&consult_type=0&p=2
-    ],
+    // 密码加密串
+    'AUTH_CODE' => "Sen", //安装完毕之后不要改变，否则所有密码都会出错
 
     /**假设这个访问地址是 www.tpshop.cn/home/goods/goodsInfo/id/1.html
      *就保存名字为 home_goods_goodsinfo_1.html

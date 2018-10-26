@@ -588,6 +588,55 @@ if (!function_exists('collection')) {
     }
 }
 
+
+if(!function_exists('M')){
+    /**
+     * 采用TP5最新助手函数特性实现函数简写方式 M
+     * @param string $name 表名
+     * @return DB对象
+     */
+    function M($name='')
+    {
+        if(!empty($name))
+        {
+            return Db::name($name);
+        }
+    }
+}
+
+if(!function_exists('D')){
+    /**
+     * 采用TP5最新助手函数特性实现函数简写方式 D
+     * @param string $name 表名
+     * @return DB对象
+     */
+    function D($name='')
+    {
+        $name = Loader::parseName($name, 1); // 转换驼峰式命名
+        if(is_file(APP_PATH."/".MODULE_NAME."/model/$name.php")){
+            $class = '\app\\'.MODULE_NAME.'\model\\'.$name;
+        }elseif(is_file(APP_PATH."/home/model/$name.php")){
+            $class = '\app\home\model\\'.$name;
+        }elseif(is_file(APP_PATH."/mobile/model/$name.php")){
+            $class = '\app\mobile\model\\'.$name;
+        }elseif(is_file(APP_PATH."/api/model/$name.php")){
+            $class = '\app\api\model\\'.$name;
+        }elseif(is_file(APP_PATH."/backend/model/$name.php")){
+            $class = '\app\backend\model\\'.$name;
+        }elseif(is_file(APP_PATH."/seller/model/$name.php")){
+            $class = '\app\seller\model\\'.$name;
+        }
+        if($class)
+        {
+            return new $class;
+        }
+        elseif(!empty($name))
+        {
+            return Db::name($name);
+        }
+    }
+}
+
 if(!function_exists('U')) {
     /**
      * 采用TP5最新助手函数特性实现函数简写方式 U
