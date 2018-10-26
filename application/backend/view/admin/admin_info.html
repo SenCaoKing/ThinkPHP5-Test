@@ -13,9 +13,9 @@
         </div>
     </div>
     <form class="form-horizontal" id="adminHandle" method="post">
-        <input type="hidden" name="act" id="act" value="add">
+        <input type="hidden" name="act" id="act" value="{$act}">
         <input type="hidden" name="admin_id" value="">
-        <input type="hidden" name="auth_code" value="">
+        <input type="hidden" name="auth_code" value="{$Think.config.AUTH_CODE}">
         <div class="ncap-form-default">
             <dl class="row">
                 <dt class="tit">
@@ -37,7 +37,6 @@
                 </dd>
 
             </dl>
-
             <dl class="row">
                 <dt class="tit">
                     <label for="password"><em>*</em>登陆密码</label>
@@ -65,16 +64,30 @@
         }
         $.ajax({
             async: false,
-            url: "{:U('Admin/adminHandle')}",
+            url: "{:U('Backend/Admin/adminHandle')}",
             // url: '/index.php/backend/Admin/adminHandle',
             data: $('#adminHandle').serialize(),
             type: 'post',
             dataType: 'json',
             success: function(data){
                 console.log(data);
+
+
+                if(data.status != 1){
+                    layer.msg(data.msg, {icon:2, time:2000});
+                    $.each(data.result, function(index, item){
+                        $('#err_'+index).text(item);
+                    });
+                }else{
+                    layer.msg(data.msg, {icon:1, time:1000}, function(){
+                        window.location.href = data.url;
+                    });
+                }
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown){
+                $('#error').html('<span class="error">网络失败，请刷新页面后重试！</span>');
             }
         });
-
     }
 </script>
 </body>
